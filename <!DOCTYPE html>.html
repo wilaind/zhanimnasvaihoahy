@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Хомяк-кликер</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #00e676;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            user-select: none;
+        }
+
+        .score {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .hamster-container {
+            position: relative;
+        }
+
+        .hamster-btn {
+            font-size: 8rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            transition: transform 0.1s ease;
+        }
+
+        .hamster-btn:active {
+            transform: scale(0.85);
+        }
+
+        .plus-one {
+            position: absolute;
+            color: #00e676;
+            font-size: 2rem;
+            font-weight: bold;
+            pointer-events: none;
+            animation: floatUp 0.8s ease-out forwards;
+        }
+
+        @keyframes floatUp {
+            0% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-50px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="score" id="score">0</div>
+    <div class="hamster-container" id="container">
+        <button class="hamster-btn" id="hamster">🐹</button>
+    </div>
+
+    <script>
+        let score = 0;
+        const scoreEl = document.getElementById('score');
+        const hamsterEl = document.getElementById('hamster');
+        const containerEl = document.getElementById('container');
+
+        hamsterEl.addEventListener('click', () => {
+            score++;
+            scoreEl.textContent = score;
+
+            const plusOne = document.createElement('div');
+            plusOne.className = 'plus-one';
+            plusOne.textContent = '+1';
+            plusOne.style.left = `calc(50% + ${(Math.random() - 0.5) * 40}px)`;
+            plusOne.style.top = '20px';
+
+            containerEl.appendChild(plusOne);
+
+            setTimeout(() => plusOne.remove(), 800);
+        });
+    </script>
+
+</body>
+</html>
